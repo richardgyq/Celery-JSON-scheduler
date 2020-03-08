@@ -1,0 +1,23 @@
+[
+    {
+        "name" : "interval test schedule",
+        "task" : "proj.test_tasks.interval_task",
+        "enabled" : true,
+        "interval" : {
+            "every" : 1,
+            "period" : "minutes"
+        }
+    },    
+    {
+        "name": "crontab test schedule",
+        "task": "proj.test_tasks.crontab_task",
+        "enabled": true,
+        "crontab": {
+            "minute": 12,
+            "hour": 15,
+            "day_of_week": "*",
+            "day_of_month": "*",
+            "month_of_year": "*"
+        }
+    }
+]

@@ -1,0 +1,10 @@
+{
+    "interval test schedule": {
+        "total_run_count": 0,
+        "last_run_at": "2020-03-03T16:33:19.872778-08:00"
+    },
+    "crontab test schedule": {
+        "total_run_count": 0,
+        "last_run_at": "2020-03-03T16:33:19.873746-08:00"
+    }
+}

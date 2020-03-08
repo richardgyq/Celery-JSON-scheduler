@@ -1,0 +1,56 @@
+version: '3'
+services:
+    rabbitmq:
+        build:
+            context: .
+            dockerfile: ./Dockerfile-rabbitmq
+        image: rabbitmq
+        container_name: rabbitmq
+        hostname: rabbitmq
+        ports:
+            - "5673:5672"
+            - "15673:15672"
+
+    worker:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        image: celeryworker
+        container_name: celeryworker
+        command: ./run_celery.sh
+        environment:
+            - RABBITMQ_HOST=rabbitmq
+            - RABBITMQ_PORT=5672
+        depends_on:
+            - rabbitmq
+
+    celerybeat:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        image: celerybeat
+        container_name: celerybeat
+        command: ./run_celery_beat.sh
+        environment:
+            - RABBITMQ_HOST=rabbitmq
+            - RABBITMQ_PORT=5672
+        ports:
+            - "4000:5000"
+        depends_on:
+            - rabbitmq
+
+    flower:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        image: celeryflower
+        container_name: celeryflower
+        ports:
+            - "5555:5555"
+        command: ./run_flower.sh
+        environment:
+            - RABBITMQ_HOST=rabbitmq
+            - RABBITMQ_PORT=5672
+        depends_on:
+            - rabbitmq
+

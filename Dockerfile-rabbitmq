@@ -1,0 +1,13 @@
+FROM rabbitmq:3.7
+
+ADD init-rabbitmq.sh /init.sh
+RUN ["chmod", "+x", "/init.sh"]
+
+EXPOSE 15673
+
+# timezone
+ENV TZ=Canada/Pacific
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# Define default command
+CMD ["/init.sh"]
