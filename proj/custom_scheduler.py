@@ -128,6 +128,7 @@ class CustomScheduleEntry(ScheduleEntry):
             self._task = converted_task
         else:
             self._task = task
+            schedule = task.get('schedule', None)
 
         self.app = (
             app if app is not None
